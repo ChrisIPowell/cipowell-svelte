@@ -1,4 +1,8 @@
-import { env } from '$env/dynamic/private';
+import {
+	CONTENTFUL_API_KEY,
+	CONTENTFUL_ENVIRONMENT,
+	CONTENTFUL_PREVIEW_API_KEY
+} from '$app/env/private';
 import type { BlogPost, BlogPostPreview } from '$lib/services/blog/Blog';
 import type { SiteFooterContent } from '$lib/services/footer/footer-content';
 import type {
@@ -83,13 +87,11 @@ class Contentful implements NavClient, PageClient {
 	previewEnabled: boolean;
 
 	constructor(platform?: App.Platform, preview = false) {
-		const contentfulEnvironment = env.CONTENTFUL_ENVIRONMENT || 'master';
+		const contentfulEnvironment = CONTENTFUL_ENVIRONMENT || 'master';
 
 		// Use preview API key if available and we're in preview mode, otherwise use regular key
 		const accessToken =
-			preview && env.CONTENTFUL_PREVIEW_API_KEY
-				? env.CONTENTFUL_PREVIEW_API_KEY
-				: env.CONTENTFUL_API_KEY;
+			preview && CONTENTFUL_PREVIEW_API_KEY ? CONTENTFUL_PREVIEW_API_KEY : CONTENTFUL_API_KEY;
 
 		if (!accessToken) {
 			const requiredKey = preview
@@ -411,8 +413,7 @@ class Contentful implements NavClient, PageClient {
 			externalUrl: this.getSymbolFieldValue(entry.fields.externalUrl),
 			topics: this.getTagFieldValues(entry.fields.topics),
 			readingStatus: this.getSymbolFieldValue(entry.fields.readingStatus) as
-				| LibraryReadingStatus
-				| '',
+				LibraryReadingStatus | '',
 			startedOn: this.getDateFieldValue(entry.fields.startedOn),
 			finishedOn: this.getDateFieldValue(entry.fields.finishedOn),
 			rating: this.getIntegerFieldValue(entry.fields.rating),

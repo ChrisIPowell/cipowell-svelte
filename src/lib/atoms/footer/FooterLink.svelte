@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { resolve } from '$app/paths';
+	import type { PathnameWithSearchOrHash } from '$app/types';
 
 	type FooterLinkVariant = 'default' | 'inverse';
 
@@ -10,7 +11,9 @@
 	}
 
 	let { href, label, variant = 'default' }: Props = $props();
-	const resolvedHref = $derived(href.startsWith('/') ? resolve(href as `/${string}`) : href);
+	const resolvedHref = $derived(
+		href.startsWith('/') ? resolve(href as PathnameWithSearchOrHash) : href
+	);
 </script>
 
 <a class={`footer-link footer-link--${variant}`} href={resolvedHref}>{label}</a>

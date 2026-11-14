@@ -7,8 +7,16 @@ const createClientMock = vi.fn(() => ({
 	getEntries: getEntriesMock
 }));
 
-vi.mock('$env/dynamic/private', () => ({
-	env: envMock
+vi.mock('$app/env/private', () => ({
+	get CONTENTFUL_ENVIRONMENT() {
+		return envMock.CONTENTFUL_ENVIRONMENT;
+	},
+	get CONTENTFUL_API_KEY() {
+		return envMock.CONTENTFUL_API_KEY;
+	},
+	get CONTENTFUL_PREVIEW_API_KEY() {
+		return envMock.CONTENTFUL_PREVIEW_API_KEY;
+	}
 }));
 
 vi.mock('contentful', () => ({

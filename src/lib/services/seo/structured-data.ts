@@ -14,12 +14,7 @@ const DEFAULT_PERSON_SAME_AS = [
 ];
 
 type JsonLdValue =
-	| string
-	| number
-	| boolean
-	| null
-	| JsonLdValue[]
-	| { [key: string]: JsonLdValue };
+	string | number | boolean | null | JsonLdValue[] | { [key: string]: JsonLdValue };
 
 type JsonLdNode = { [key: string]: JsonLdValue };
 type SameAsLink = SiteFooterContent['connect']['links'][number];
