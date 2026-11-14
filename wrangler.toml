@@ -30,6 +30,11 @@ directory = ".svelte-kit/cloudflare"
 # Preview mode uses the Contentful Preview API to show draft content
 # Set CONTENTFUL_PREVIEW_API_KEY secret to use a preview-specific token
 # If not set, falls back to CONTENTFUL_API_KEY
+# Top-level settings like `preview_urls` are not inherited by named
+# environments, so Workers Builds needs it redeclared here for PR previews.
+
+[env.preview]
+preview_urls = true
 
 [env.preview.vars]
 CONTENTFUL_ENVIRONMENT = "preview"
