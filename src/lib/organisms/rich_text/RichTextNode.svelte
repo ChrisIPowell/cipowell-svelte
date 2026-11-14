@@ -266,8 +266,7 @@
 		) as 'default' | 'soft' | 'plum'}
 		align={asVariant(heroFields.align, ['left', 'center'], 'left') as 'left' | 'center'}
 		maxWidth={asVariant(heroFields.maxWidth, ['default', 'narrow'], 'default') as
-			| 'default'
-			| 'narrow'}
+			'default' | 'narrow'}
 	/>
 {:else if node.nodeType === 'embedded-entry-block' && threeColumnItems.length > 0}
 	<ThreeColumnSection
@@ -278,9 +277,7 @@
 			'default'
 		) as 'default' | 'credibility' | 'feature' | 'focus' | 'cta'}
 		background={asVariant(threeColumnFields?.background, ['default', 'soft', 'plum'], 'default') as
-			| 'default'
-			| 'soft'
-			| 'plum'}
+			'default' | 'soft' | 'plum'}
 		divider={Boolean(threeColumnFields?.divider)}
 		align={asVariant(threeColumnFields?.align, ['left', 'center'], 'left') as 'left' | 'center'}
 		hover={Boolean(threeColumnFields?.hover)}

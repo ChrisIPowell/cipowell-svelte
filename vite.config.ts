@@ -1,4 +1,6 @@
+import adapter from '@sveltejs/adapter-cloudflare';
 import { sveltekit } from '@sveltejs/kit/vite';
+import { vitePreprocess } from '@sveltejs/vite-plugin-svelte';
 import { svelteTesting } from '@testing-library/svelte/vite';
 import { defineConfig } from 'vitest/config';
 import path from 'node:path';
@@ -6,12 +8,24 @@ import { fileURLToPath } from 'node:url';
 import { storybookTest } from '@storybook/addon-vitest/vitest-plugin';
 import { playwright } from '@vitest/browser-playwright';
 
-const dirname =
-	typeof __dirname !== 'undefined' ? __dirname : path.dirname(fileURLToPath(import.meta.url));
+const dirname = path.dirname(fileURLToPath(import.meta.url));
 
 // More info at: https://storybook.js.org/docs/next/writing-tests/integrations/vitest-addon
 export default defineConfig({
-	plugins: [sveltekit(), svelteTesting()],
+	plugins: [
+		sveltekit({
+			// Consult https://svelte.dev/docs/kit/integrations#preprocessors
+			// for more information about preprocessors
+			preprocess: vitePreprocess(),
+			// `$lib` was replaced by `#lib` in SvelteKit 3; keep the existing `$lib` imports working.
+			alias: { $lib: 'src/lib' },
+			// adapter-auto only supports some environments, see https://svelte.dev/docs/kit/adapter-auto for a list.
+			// If your environment is not supported, or you settled on a specific environment, switch out the adapter.
+			// See https://svelte.dev/docs/kit/adapters for more information about adapters.
+			adapter: adapter()
+		}),
+		svelteTesting()
+	],
 	test: {
 		projects: [
 			{

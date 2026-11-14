@@ -37,58 +37,57 @@
 	"devDependencies": {
 		"@eslint/js": "^10.0.1",
 		"@playwright/test": "^1.59.1",
-		"@storybook/addon-a11y": "^10.3.6",
-		"@storybook/addon-docs": "^10.3.6",
-		"@storybook/addon-links": "^10.3.6",
-		"@storybook/addon-svelte-csf": "^5.1.2",
-		"@storybook/addon-vitest": "^10.3.6",
-		"@storybook/svelte": "^10.3.6",
-		"@storybook/sveltekit": "^10.3.6",
-		"@sveltejs/adapter-cloudflare": "^7.2.8",
-		"@sveltejs/kit": "^2.59.0",
-		"@sveltejs/vite-plugin-svelte": "^7.0.0",
+		"@storybook/addon-a11y": "^10.6.7",
+		"@storybook/addon-docs": "^10.6.7",
+		"@storybook/addon-links": "^10.6.7",
+		"@storybook/addon-svelte-csf": "^5.1.6",
+		"@storybook/addon-vitest": "^10.6.7",
+		"@storybook/svelte": "^10.6.7",
+		"@storybook/sveltekit": "^10.6.7",
+		"@sveltejs/adapter-cloudflare": "^8.0.2",
+		"@sveltejs/kit": "^3.2.0",
+		"@sveltejs/vite-plugin-svelte": "^7.3.1",
 		"@testing-library/svelte": "^5.3.1",
-		"@types/node": "^25.6.0",
-		"@vitest/browser-playwright": "^4.1.5",
-		"@vitest/coverage-v8": "^4.1.2",
-		"@vitest/ui": "^4.1.2",
-		"eslint": "^10.3.0",
+		"@types/node": "^26.6.2",
+		"@vitest/browser-playwright": "^5.1.0",
+		"@vitest/coverage-v8": "^5.1.0",
+		"@vitest/ui": "^5.1.0",
+		"eslint": "^10.15.0",
 		"eslint-config-prettier": "^10.1.8",
-		"eslint-plugin-storybook": "^10.3.6",
+		"eslint-plugin-storybook": "^10.6.7",
 		"eslint-plugin-svelte": "^3.17.1",
 		"globals": "^17.6.0",
 		"jsdom": "^29.1.1",
-		"knip": "^6.11.0",
-		"markdownlint-cli2": "^0.22.1",
+		"knip": "^6.37.0",
+		"markdownlint-cli2": "^0.24.1",
 		"playwright": "^1.59.1",
 		"prettier": "^3.8.3",
 		"prettier-plugin-svelte": "^3.5.1",
 		"remark-gfm": "^4.0.1",
-		"storybook": "^10.3.4",
-		"svelte": "^5.55.5",
-		"svelte-check": "^4.4.7",
+		"storybook": "^10.6.7",
+		"svelte": "^5.57.3",
+		"svelte-check": "^4.7.6",
 		"typescript": "^6.0.3",
-		"typescript-eslint": "^8.59.1",
-		"vite": "^8.0.10",
-		"vitest": "^4.1.2"
+		"typescript-eslint": "^8.72.2",
+		"vite": "^8.3.8",
+		"vitest": "^5.1.0"
 	},
 	"overrides": {
 		"@sveltejs/kit": {
-			"cookie": "0.7.0"
+			"cookie": "^2.0.1"
 		},
-		"axios": "1.15.0",
+		"axios": "1.21.1",
 		"contentful-sdk-core": {
 			"lodash": "4.18.1"
 		},
+		"katex": "0.19.1",
 		"markdownlint-cli2": {
-			"smol-toml": "1.6.1"
+			"smol-toml": "1.9.1"
 		},
 		"miniflare": {
-			"undici": "7.24.5"
+			"undici": "7.30.2"
 		},
-		"minimatch@10.2.4": {
-			"brace-expansion": "5.0.5"
-		},
+		"minimatch": "^11.0.8",
 		"postcss-load-config": {
 			"yaml": "1.10.3"
 		}
@@ -97,6 +96,6 @@
 	"dependencies": {
 		"@contentful/live-preview": "^4.10.2",
 		"@lucide/svelte": "^1.14.0",
-		"contentful": "^11.12.1"
+		"contentful": "^11.12.10"
 	}
 }

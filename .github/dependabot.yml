@@ -19,6 +19,7 @@ updates:
         patterns:
           - 'svelte'
           - '@sveltejs/*'
+          - 'vite'
       contentful:
         patterns:
           - '@contentful/*'
@@ -27,6 +28,20 @@ updates:
         patterns:
           - 'vitest'
           - '@vitest/*'
+      playwright:
+        patterns:
+          - 'playwright'
+          - '@playwright/*'
+      eslint:
+        patterns:
+          - 'eslint'
+          - '@eslint/*'
+          - 'eslint-config-*'
+          - 'eslint-plugin-*'
+          - 'typescript-eslint'
+          - '@typescript-eslint/*'
+        exclude-patterns:
+          - 'eslint-plugin-storybook'
   - package-ecosystem: 'github-actions'
     directory: '/'
     schedule:
