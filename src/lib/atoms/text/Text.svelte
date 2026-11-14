@@ -17,6 +17,7 @@
 	}
 
 	.text--large {
+		font-weight: var(--font-weight-medium);
 		font-size: var(--font-size-body-lg);
 	}
 

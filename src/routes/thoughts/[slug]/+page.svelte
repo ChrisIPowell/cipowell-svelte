@@ -151,9 +151,9 @@
 
 	.thought-post__tags li {
 		padding: calc(var(--space-1) / 2) var(--space-2);
-		border-radius: var(--space-4);
+		border-radius: var(--radius-none);
 		background: var(--color-tag-bg);
-		color: var(--color-text-primary);
+		color: var(--color-tag-text);
 		font-size: 0.95rem;
 		line-height: 1.3;
 	}
