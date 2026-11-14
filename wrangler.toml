@@ -7,6 +7,11 @@ compatibility_flags = [
 compatibility_date = "2025-09-01"
 preview_urls = true
 
+# Required by Workers Builds to create/update PR previews (`wrangler preview`).
+# Can be empty; assets, compatibility settings, migrations, and placement
+# stay at the top level. See https://developers.cloudflare.com/workers/previews/configuration/#wrangler-configuration-file
+[previews]
+
 [observability]
 enabled = false
 head_sampling_rate = 1
