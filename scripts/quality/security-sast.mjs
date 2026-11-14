@@ -11,6 +11,11 @@ await runCommand(
 		'--config',
 		'p/nodejs',
 		'--error',
+		// semgrep-core has been OOM-killed (signal -11) on the default parallel job
+		// count on standard GitHub-hosted runners; run single-threaded to keep peak
+		// memory down. See https://semgrep.dev/docs/cli-reference for the -j flag.
+		'-j',
+		'1',
 		'--exclude',
 		'node_modules',
 		'--exclude',
