@@ -25,7 +25,7 @@
 		align-items: center;
 		min-height: 2.75rem;
 		padding: 0.625rem var(--space-2);
-		border-radius: 0.35rem;
+		border-radius: var(--radius-none);
 		border: 1px solid transparent;
 		font-weight: var(--font-weight-medium);
 		line-height: 1.2;
