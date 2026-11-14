@@ -38,7 +38,7 @@
 	.brand-mark:focus-visible {
 		outline: 2px solid var(--color-focus-ring);
 		outline-offset: 2px;
-		border-radius: 0.125rem;
+		border-radius: var(--radius-none);
 	}
 
 	img {

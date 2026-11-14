@@ -126,7 +126,7 @@
 		height: var(--space-6);
 		display: inline-grid;
 		place-items: center;
-		border-radius: 999px;
+		border-radius: var(--radius-none);
 		background: var(--color-icon-surface);
 		color: var(--color-text-primary);
 	}
@@ -143,7 +143,7 @@
 
 	.three-column-item--hover {
 		padding: var(--space-3);
-		border-radius: var(--space-2);
+		border-radius: var(--radius-none);
 		transition: box-shadow 150ms ease;
 	}
 
@@ -159,7 +159,7 @@
 		height: 100%;
 		padding: var(--space-3);
 		border: 1px solid var(--color-cta-border);
-		border-radius: var(--space-2);
+		border-radius: var(--radius-none);
 		background: var(--color-cta-surface);
 		color: inherit;
 		text-decoration: none;

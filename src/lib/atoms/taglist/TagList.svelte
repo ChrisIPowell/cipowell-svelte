@@ -26,12 +26,13 @@
 		font-size: 1rem;
 
 		background-color: var(--color-tag-bg);
+		color: var(--color-tag-text);
 
 		padding: 0.25rem 1rem;
 		margin: 0 0.5rem;
 
 		border: none;
-		border-radius: 0.5rem;
+		border-radius: var(--radius-none);
 	}
 
 	button:hover {

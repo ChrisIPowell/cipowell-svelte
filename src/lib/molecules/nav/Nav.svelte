@@ -52,7 +52,7 @@
 		justify-content: center;
 		padding: 0.5rem;
 		border: 1px solid var(--color-nav-menu-border);
-		border-radius: 0.25rem;
+		border-radius: var(--radius-none);
 		background: transparent;
 		color: var(--color-accent-1);
 		cursor: pointer;
@@ -69,7 +69,7 @@
 		width: 1.5rem;
 		height: 0.125rem;
 		background: currentColor;
-		border-radius: 999px;
+		border-radius: var(--radius-none);
 	}
 
 	.menu-toggle:focus-visible {
@@ -85,7 +85,7 @@
 		background: var(--color-nav-menu-bg);
 		padding: 0.75rem;
 		border: 1px solid var(--color-nav-menu-border);
-		border-radius: 0.5rem;
+		border-radius: var(--radius-none);
 		box-shadow: var(--elevation-nav-menu);
 		z-index: 2;
 	}

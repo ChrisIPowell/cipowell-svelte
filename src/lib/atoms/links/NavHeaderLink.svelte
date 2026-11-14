@@ -33,7 +33,7 @@
 		background-color: var(--color-link-primary-bg);
 		color: var(--color-link-primary-text);
 		padding: 0.55rem 0.95rem;
-		border-radius: 0.3rem;
+		border-radius: var(--radius-none);
 	}
 
 	.navlink--primary:hover,
