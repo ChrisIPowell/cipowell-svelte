@@ -11,11 +11,14 @@ await runCommand(
 		'--config',
 		'p/nodejs',
 		'--error',
-		// semgrep-core has been OOM-killed (signal -11) on the default parallel job
-		// count on standard GitHub-hosted runners; run single-threaded to keep peak
-		// memory down. See https://semgrep.dev/docs/cli-reference for the -j flag.
+		// semgrep-core has been OOM-killed (signal -11) on the GitHub-hosted runner.
+		// -j 1 alone didn't resolve it, so also cap per-file memory: semgrep skips
+		// (with a warning) any single file that would exceed this instead of the
+		// whole process dying. See https://semgrep.dev/docs/cli-reference.
 		'-j',
 		'1',
+		'--max-memory',
+		'2000',
 		'--exclude',
 		'node_modules',
 		'--exclude',
@@ -28,6 +31,8 @@ await runCommand(
 		'coverage',
 		'--exclude',
 		'storybook-static',
+		'--exclude',
+		'package-lock.json',
 		'.'
 	],
 	[
