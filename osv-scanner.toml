@@ -1,0 +1,16 @@
+# osv-scanner config — see `npm run security:deps` / scripts/quality/security-deps.mjs.
+#
+# Only add an entry here for an advisory with no fixed version published
+# upstream yet (confirmed via `npm view <package> versions`). Remove the
+# entry and bump the dependency as soon as a fix is released.
+
+[[IgnoredVulns]]
+id = "GHSA-gcqx-w48m-w2h4"
+reason = """
+deepmerge <=4.3.1 (prototype poisoning via mergeObject()). deepmerge is a
+build-time-only transitive dependency of @sveltejs/vite-plugin-svelte, used
+to merge our own static Vite config objects — it never processes
+attacker-controlled input. No patched deepmerge release exists yet (latest
+on npm is still 4.3.1, the top of the vulnerable range). Re-check with
+`npm view deepmerge versions` and remove this entry once a fix ships.
+"""

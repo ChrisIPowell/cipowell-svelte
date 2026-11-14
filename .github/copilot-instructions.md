@@ -7,6 +7,7 @@
 - For Contentful model changes, update both `contentful/migrations/` and the application code that consumes the model in `src/lib/services/**` and related UI.
 - Keep the OSS quality pipeline healthy. Changes that affect linting, formatting, tests, static analysis, or security checks must update the relevant scripts, workflows, and docs together.
 - Do not remove or weaken validation, contributor rules, or documentation requirements without updating both agent instruction files and explaining the change in the README or docs.
+- `osv-scanner.toml` may ignore an advisory only when no fixed version exists upstream yet (confirmed via `npm view <package> versions`) and the finding is in a build-time-only dependency with no attacker-controlled input path. Document the reason on the entry and remove it as soon as a fix is published; never use it to silence an advisory that a dependency bump could fix instead.
 - Before handing work back, run `npm run check`, `npm run lint`, and `npm run security` locally for any code, content model, routing, SEO, or workflow change. Do not treat `check:types` alone as sufficient because `npm run check` also enforces dependency hygiene via `check:deps`.
 - Prefer `npm run ci` for broad changes or anything that touches tooling, workflows, or shared UI. If a full run is not feasible, clearly report which required command was not run and why.
 - Pull requests to `main` should remain blocked until the required GitHub checks pass. Do not treat failing or unrun required checks as merge-ready.
