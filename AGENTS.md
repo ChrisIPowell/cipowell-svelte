@@ -25,6 +25,7 @@ Do not ship schema-only or code-only updates when both are required for correctn
 
 - Keep the open-source quality pipeline working. Changes to linting, formatting, testing, static analysis, or security checks must update the relevant scripts, workflows, and docs together.
 - Do not remove or weaken validation without also updating this file, `.github/copilot-instructions.md`, and the README to explain the new policy.
+- `osv-scanner.toml` may ignore an individual advisory only when no fixed version has been published upstream yet (verify with `npm view <package> versions` before adding an entry) and the finding is in a build-time-only dependency with no path to attacker-controlled input. Each entry needs a `reason` explaining both of those, and must be removed as soon as a fix ships — do not use it to silence a finding that could instead be fixed by bumping a dependency.
 - Keep Node.js pinned to the repository standard in `.nvmrc`, `.node-version`, `package.json`, and GitHub Actions when the runtime baseline changes.
 - Before handing work back, run `npm run check`, `npm run lint`, and `npm run security` locally for any code, content model, routing, SEO, or workflow change. Do not treat `check:types` alone as sufficient because `npm run check` also enforces dependency hygiene via `check:deps`.
 - Prefer `npm run ci` for broad changes or anything that affects tooling, workflows, or shared UI. If a full run is not feasible, explicitly report which required command was not run and why.

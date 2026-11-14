@@ -198,6 +198,8 @@ npm run security:sast
 - `security:secrets` runs `gitleaks`.
 - `security:sast` runs Semgrep Community Edition with open-source JavaScript, TypeScript, and Node.js rules.
 
+`osv-scanner.toml` lists advisories that are ignored because no fixed version has been published upstream yet, each with a `reason` explaining why. Remove an entry and bump the dependency as soon as a fix ships; never add one for an advisory a dependency bump could resolve instead.
+
 ### Full local CI pipeline
 
 ```bash
