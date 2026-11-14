@@ -51,7 +51,6 @@ Optional local security tooling for `npm run security:*`:
 
 - `osv-scanner` `v2.3.5`
 - `gitleaks`
-- `semgrep`
 
 CI installs those tools automatically. OSV-Scanner is pinned to `v2.3.5` in CI because newer source installs can break on upstream module metadata. For local use, install the same version or use your preferred package manager before running the security scripts.
 
@@ -191,14 +190,14 @@ Runs unit tests, Storybook browser tests, and Playwright integration tests.
 ```bash
 npm run security:deps
 npm run security:secrets
-npm run security:sast
 ```
 
 - `security:deps` runs `osv-scanner` against the project source and lockfiles.
 - `security:secrets` runs `gitleaks`.
-- `security:sast` runs Semgrep Community Edition with open-source JavaScript, TypeScript, and Node.js rules.
 
 `osv-scanner.toml` lists advisories that are ignored because no fixed version has been published upstream yet, each with a `reason` explaining why. Remove an entry and bump the dependency as soon as a fix ships; never add one for an advisory a dependency bump could resolve instead.
+
+There is no SAST (`security:sast`) step: Semgrep Community Edition's `semgrep-core` consistently segfaulted (signal -11) on the GitHub-hosted CI runner scanning this repository, reproducibly, even single-threaded with per-file memory capped and the largest tracked file excluded. Re-add it (a different SAST tool, or Semgrep once the crash is understood/fixed upstream) if the pipeline needs that coverage again.
 
 ### Full local CI pipeline
 
