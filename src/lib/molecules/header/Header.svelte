@@ -12,7 +12,7 @@
 	.brand-link {
 		display: inline-flex;
 		align-items: center;
-		border-radius: 0.25rem;
+		border-radius: var(--radius-none);
 	}
 
 	.brand-link:focus-visible {
