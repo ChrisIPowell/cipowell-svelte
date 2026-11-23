@@ -475,21 +475,29 @@ class Contentful implements NavClient, PageClient {
 	}
 
 	async getMostRecentlyCreatedBlogPosts(limit = 3, tag = ''): Promise<BlogPostPreview[]> {
-		const query: Record<string, string | number> = {
-			content_type: 'blogPost',
-			order: '-sys.createdAt',
-			limit
-		};
+		const normalizedTag = tag.trim();
 
-		if (tag.trim()) {
-			query['fields.tags[in]'] = tag.trim();
-		}
+		return this.cache.get(
+			`blog-posts-recent-${limit}-${normalizedTag || 'all'}`,
+			async () => {
+				const query: Record<string, string | number> = {
+					content_type: 'blogPost',
+					order: '-sys.createdAt',
+					limit
+				};
 
-		const entries = await this.client.getEntries<ContentfulBlogPost>(
-			query as unknown as contentful.EntriesQueries<ContentfulBlogPost, undefined>
+				if (normalizedTag) {
+					query['fields.tags[in]'] = normalizedTag;
+				}
+
+				const entries = await this.client.getEntries<ContentfulBlogPost>(
+					query as unknown as contentful.EntriesQueries<ContentfulBlogPost, undefined>
+				);
+
+				return entries.items.map((entry) => this.mapBlogPostPreview(entry));
+			},
+			60 * 60
 		);
-
-		return entries.items.map((entry) => this.mapBlogPostPreview(entry));
 	}
 
 	async getLibraryEntries(): Promise<LibraryEntryPreview[]> {
@@ -558,42 +566,50 @@ class Contentful implements NavClient, PageClient {
 	}
 
 	async getBlogPost(slug: string): Promise<BlogPost> {
-		const entries = await this.client.getEntries<ContentfulBlogPost>({
-			content_type: 'blogPost',
-			'fields.slug': slug,
-			include: 10,
-			limit: 1
-		} as unknown as contentful.EntriesQueries<ContentfulBlogPost, undefined>);
+		return this.cache.get(
+			`blog-post-${slug}`,
+			async () => {
+				const entries = await this.client.getEntries<ContentfulBlogPost>({
+					content_type: 'blogPost',
+					'fields.slug': slug,
+					include: 10,
+					limit: 1
+				} as unknown as contentful.EntriesQueries<ContentfulBlogPost, undefined>);
 
-		if (!entries.items.length) {
-			throw new Error(`Blog post not found: ${slug}`);
-		}
+				if (!entries.items.length) {
+					throw new Error(`Blog post not found: ${slug}`);
+				}
 
-		const post = entries.items[0];
-		const body = (post.fields.body as RichTextDocument | null | undefined) ?? null;
-		const explicitDescription = this.getSymbolFieldValue(post.fields.description);
-		const derivedDescription = this.getRichTextPlainText(body as RichTextNode | null | undefined);
+				const post = entries.items[0];
+				const body = (post.fields.body as RichTextDocument | null | undefined) ?? null;
+				const explicitDescription = this.getSymbolFieldValue(post.fields.description);
+				const derivedDescription = this.getRichTextPlainText(
+					body as RichTextNode | null | undefined
+				);
 
-		return {
-			title: this.getSymbolFieldValue(post.fields.title),
-			slug: this.getSymbolFieldValue(post.fields.slug),
-			description: explicitDescription
-				? this.truncateDescription(explicitDescription, 160)
-				: this.truncateDescription(derivedDescription, 100),
-			socialImage: this.getFirstRichTextAssetImage(body as RichTextNode | null | undefined),
-			body,
-			tags: this.getTagFieldValues(post.fields.tags),
-			published: post.sys.createdAt ?? post.sys.updatedAt ?? new Date(0).toISOString(),
-			lastUpdated: post.sys.updatedAt ?? post.sys.createdAt ?? new Date(0).toISOString(),
-			contentfulMetadata: {
-				entryId: post.sys.id,
-				locale: post.sys.locale || 'en-US',
-				environment: this.contentfulEnvironment
+				return {
+					title: this.getSymbolFieldValue(post.fields.title),
+					slug: this.getSymbolFieldValue(post.fields.slug),
+					description: explicitDescription
+						? this.truncateDescription(explicitDescription, 160)
+						: this.truncateDescription(derivedDescription, 100),
+					socialImage: this.getFirstRichTextAssetImage(body as RichTextNode | null | undefined),
+					body,
+					tags: this.getTagFieldValues(post.fields.tags),
+					published: post.sys.createdAt ?? post.sys.updatedAt ?? new Date(0).toISOString(),
+					lastUpdated: post.sys.updatedAt ?? post.sys.createdAt ?? new Date(0).toISOString(),
+					contentfulMetadata: {
+						entryId: post.sys.id,
+						locale: post.sys.locale || 'en-US',
+						environment: this.contentfulEnvironment
+					},
+					livePreview: {
+						enabled: this.previewEnabled
+					}
+				};
 			},
-			livePreview: {
-				enabled: this.previewEnabled
-			}
-		};
+			60 * 60
+		);
 	}
 
 	async getSiteFooter(): Promise<SiteFooterContent> {
